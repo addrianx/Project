@@ -1,0 +1,594 @@
+/* Android POS Style & Mobile-First Touch Friendly CSS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #0b1329;
+  color: #f8fafc;
+  min-height: 100vh;
+  padding-bottom: 70px; /* Space for Android Bottom Nav Bar */
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding-bottom: 0;
+  }
+}
+
+/* Light Mode Overrides */
+html.light body {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+/* ============================================
+   LIGHT MODE: TEXT COLOR FIXES
+   Fix white & light-gray text for readability
+   ============================================ */
+
+/* White text on non-colored backgrounds → near-black
+   Only target elements that don't also have a colored bg (handled by specificity) */
+html.light h1.text-white,
+html.light h2.text-white,
+html.light h3.text-white,
+html.light h4.text-white,
+html.light h5.text-white,
+html.light p.text-white,
+html.light span.text-white,
+html.light td.text-white,
+html.light div.text-white {
+  color: #111827 !important;
+}
+
+/* Slate-100, 200 (near white) → dark gray */
+html.light .text-slate-100 {
+  color: #1f2937 !important;
+}
+html.light .text-slate-200 {
+  color: #374151 !important;
+}
+
+/* Slate-300 → medium dark gray */
+html.light .text-slate-300 {
+  color: #4b5563 !important;
+}
+
+/* Slate-400 → readable dark muted */
+html.light .text-slate-400 {
+  color: #6b7280 !important;
+}
+
+/* Header nav links & bottom nav inactive */
+html.light .bottom-nav button {
+  color: #6b7280;
+}
+html.light .bottom-nav button.text-blue-500 {
+  color: #2563eb !important;
+}
+
+/* Table header row text */
+html.light .custom-table thead tr {
+  color: #374151;
+}
+
+/* Table row text */
+html.light .custom-table tbody td {
+  color: #1f2937;
+}
+
+/* Table: brand chip in cell */
+html.light .custom-table tbody td span.px-2 {
+  background: #e5e7eb !important;
+  border-color: #d1d5db !important;
+  color: #374151 !important;
+}
+
+/* Table: location chip */
+html.light .custom-table tbody td span.bg-slate-900 {
+  background: #f3f4f6 !important;
+  border-color: #e5e7eb !important;
+  color: #374151 !important;
+}
+
+/* Product card: name (bold) */
+html.light .pos-card h4 {
+  color: #111827 !important;
+}
+
+/* Product card: SKU (blue-400 class) in card */
+html.light .pos-card .text-blue-400 {
+  color: #1d4ed8 !important;
+}
+
+/* Product card: brand chip in POS grid */
+html.light .pos-card .bg-slate-800 {
+  background: #e5e7eb !important;
+  border-color: #d1d5db !important;
+  color: #374151 !important;
+}
+
+/* Product card: icon background */
+html.light .pos-card .bg-slate-950 {
+  background: #f9fafb !important;
+  border-color: #e5e7eb !important;
+}
+
+/* Product card: divider border */
+html.light .pos-card .border-slate-800\/80,
+html.light .pos-card .border-t {
+  border-color: #e5e7eb !important;
+}
+
+/* Category chips (inactive) */
+html.light .category-chip.bg-slate-900 {
+  background: #f3f4f6 !important;
+  border-color: #d1d5db !important;
+  color: #374151 !important;
+}
+html.light button.bg-slate-900 {
+  background: #f3f4f6 !important;
+  border-color: #d1d5db !important;
+  color: #374151 !important;
+}
+
+/* Modal header */
+html.light .pos-card .bg-slate-900 {
+  background: #f9fafb !important;
+  border-color: #e5e7eb !important;
+}
+
+/* Modal header text and close button */
+html.light .pos-card h3 {
+  color: #111827 !important;
+}
+
+/* Form labels in modal */
+html.light label {
+  color: #374151 !important;
+}
+
+/* Modal cancel button */
+html.light button.bg-slate-800 {
+  background: #e5e7eb !important;
+  color: #374151 !important;
+}
+
+/* Transaction tipe badge (MASUK / KELUAR) */
+html.light .bg-emerald-500\/20.text-emerald-300 {
+  color: #047857 !important;
+}
+html.light .bg-blue-500\/20.text-blue-300 {
+  color: #1d4ed8 !important;
+}
+
+/* Transaction table: total value & amount column */
+html.light .custom-table tbody td.font-mono-code {
+  color: #1f2937 !important;
+}
+
+/* Report cards */
+html.light .pos-card span.text-slate-400 {
+  color: #6b7280 !important;
+}
+
+/* Settings view text */
+html.light .pos-card p.text-slate-400 {
+  color: #6b7280 !important;
+}
+html.light .pos-card h3.text-slate-200 {
+  color: #1f2937 !important;
+}
+
+/* Header: search icon & clear button */
+html.light header .text-slate-400 {
+  color: #6b7280 !important;
+}
+html.light header button.text-slate-400 {
+  color: #6b7280 !important;
+}
+html.light header button.hover\:text-white:hover {
+  color: #111827 !important;
+}
+
+/* Alert bell button (no low stock) */
+html.light header button.bg-slate-800 {
+  background: #e5e7eb !important;
+  border-color: #d1d5db !important;
+  color: #4b5563 !important;
+}
+
+/* Theme toggle button */
+html.light header button.border-slate-800 {
+  background: #e5e7eb !important;
+  border-color: #d1d5db !important;
+}
+
+/* Summary pill bar in POS: "Pcs" small text */
+html.light .pos-card .text-slate-400 {
+  color: #6b7280 !important;
+}
+
+/* Stock preview panel in modal */
+html.light .bg-slate-950 {
+  background: #f9fafb !important;
+  border-color: #e5e7eb !important;
+}
+html.light .bg-slate-950 .text-slate-400 {
+  color: #6b7280 !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
+/* Category Chips Horizontal Scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.category-chip {
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Light mode: category chips (inactive state) */
+html.light .category-chip:not(.active) {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #374151 !important;
+}
+
+html.light .category-chip:not(.active):hover {
+  background: #e2e8f0 !important;
+}
+
+.category-chip.active {
+  background-color: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.4);
+  border-color: #3b82f6;
+}
+
+/* Category row item in Settings */
+.cat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.75rem;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(71, 85, 105, 0.6);
+  transition: border-color 0.2s ease;
+}
+
+.cat-item:hover {
+  border-color: #475569;
+}
+
+html.light .cat-item {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .cat-item:hover {
+  border-color: #cbd5e1 !important;
+  background: #f1f5f9 !important;
+}
+
+.cat-item .cat-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+html.light .cat-item .cat-name {
+  color: #1f2937 !important;
+}
+
+/* Badge "N produk" di Settings — empty (0 produk) */
+.cat-badge-empty {
+  font-size: 0.625rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: 1px solid;
+  background: rgba(51, 65, 85, 0.6);
+  color: #94a3b8;
+  border-color: rgba(71, 85, 105, 0.4);
+}
+
+html.light .cat-badge-empty {
+  background: #f1f5f9 !important;
+  color: #64748b !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Tombol hapus disabled (kategori masih dipakai) */
+.cat-del-disabled {
+  background: rgba(51, 65, 85, 0.5);
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+html.light .cat-del-disabled {
+  background: #e2e8f0 !important;
+  color: #9ca3af !important;
+}
+
+/* Android POS Cards */
+.pos-card {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  transition: all 0.2s ease;
+}
+
+html.light .pos-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
+}
+
+.pos-card:hover {
+  transform: translateY(-2px);
+  border-color: #3b82f6;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+html.light .pos-card:hover {
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* Glass inputs */
+.glass-input {
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: #f8fafc;
+}
+
+html.light .glass-input {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  color: #111827;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Android FAB (Floating Action Button) */
+.fab-button {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+  z-index: 40;
+  transition: all 0.2s ease;
+}
+
+@media (min-width: 1024px) {
+  .fab-button {
+    bottom: 24px;
+    right: 24px;
+  }
+}
+
+.fab-button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.6);
+}
+
+.fab-button:active {
+  transform: scale(0.95);
+}
+
+/* Android Bottom Nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 40;
+}
+
+html.light .bottom-nav {
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Badge colors */
+.badge-aman {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+html.light .badge-aman {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.badge-menipis {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+html.light .badge-menipis {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.badge-habis {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+html.light .badge-habis {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+}
+
+/* Custom Table No-Wrap Styling */
+.custom-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.custom-table th,
+.custom-table td {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+}
+
+.custom-table th {
+  background: #0f172a;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+html.light .custom-table th {
+  background: #f8fafc;
+}
+
+.custom-table tbody tr:hover {
+  background: rgba(30, 41, 59, 0.5);
+}
+
+html.light .custom-table tbody tr:hover {
+  background: #f1f5f9;
+}
+
+/* Role Switcher Badge Light Mode */
+html.light .bg-blue-600\/20.text-blue-400 {
+  background: #dbeafe !important;
+  color: #1d4ed8 !important;
+  border-color: #93c5fd !important;
+}
+
+html.light .bg-emerald-600\/20.text-emerald-400 {
+  background: #d1fae5 !important;
+  color: #047857 !important;
+  border-color: #6ee7b7 !important;
+}
+
+/* --- LIGHT MODE OVERRIDES FOR SELECTED ITEMS & CARTS --- */
+html.light select.glass-input option {
+  background: #ffffff !important;
+  color: #111827 !important;
+}
+
+/* Modal Selected Product Preview Card */
+html.light .bg-slate-900\/90,
+html.light .bg-slate-900 {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light .bg-slate-900\/90 p.text-white,
+html.light .bg-slate-900 p.text-white,
+html.light .bg-slate-900\/90 strong.text-white,
+html.light .bg-slate-900 strong.text-white {
+  color: #111827 !important;
+}
+
+html.light .bg-slate-900\/90 .text-slate-400,
+html.light .bg-slate-900 .text-slate-400 {
+  color: #475569 !important;
+}
+
+html.light .bg-slate-900\/90 .bg-slate-800,
+html.light .bg-slate-900 .bg-slate-800 {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+/* Cart Container in Light Mode */
+html.light .bg-slate-950 {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light .bg-slate-950 span.text-slate-200,
+html.light .bg-slate-950 p.text-slate-200 {
+  color: #0f172a !important;
+}
+
+html.light .bg-slate-950 p.text-slate-400 {
+  color: #475569 !important;
+}
+
+/* Modal non-active type switcher buttons */
+html.light button.bg-slate-900 {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #475569 !important;
+}
+
+/* Result count info text */
+html.light span.text-slate-400.font-mono {
+  color: #475569 !important;
+}
+
+/* Print styling */
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    padding-bottom: 0 !important;
+  }
+  .bottom-nav, .fab-button, .no-print {
+    display: none !important;
+  }
+}
