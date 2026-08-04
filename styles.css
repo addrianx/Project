@@ -47,7 +47,8 @@ body {
   background-color: #0b1329;
   color: #f8fafc;
   min-height: 100vh;
-  padding-bottom: 70px; /* Space for Android Bottom Nav Bar */
+  /* Extra bottom padding accounts for safe-area-inset on iPhone X+ */
+  padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px));
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
@@ -458,18 +459,29 @@ html.light .glass-input {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 64px;
-  background: rgba(15, 23, 42, 0.95);
+  /* iPhone X+ safe area — pushes nav above the home indicator */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  /* Minimum height without safe area */
+  height: calc(64px + env(safe-area-inset-bottom, 0px));
+  background: rgba(15, 23, 42, 0.97);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid #1e293b;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  z-index: 40;
+  z-index: 50;
+  /* Force GPU compositing layer — prevents iOS Safari from moving
+     fixed elements when the virtual keyboard opens or page zooms */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+  /* Prevent the nav from accidentally scrolling itself */
+  overflow: hidden;
 }
 
 html.light .bottom-nav {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.97);
   border-top: 1px solid #e5e7eb;
 }
 
