@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>CIPTA POS - Aplikasi Inventory Toko Komputer</title>
   <meta name="description"
     content="Aplikasi Android POS Kasir & Manajemen Inventory Toko Komputer Simpel & Responsive." />
@@ -46,6 +46,31 @@
 
   <!-- Babel Standalone -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Mobile: Disable pinch-to-zoom & double-tap zoom (iOS / Android) -->
+  <script>
+    // Block pinch-to-zoom gesture (2+ finger touch)
+    document.addEventListener('touchstart', function (e) {
+      if (e.touches.length > 1) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    // Block double-tap zoom on iOS
+    var lastTouchEnd = 0;
+    document.addEventListener('touchend', function (e) {
+      var now = Date.now();
+      if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, { passive: false });
+
+    // Block gesturestart (Safari-specific pinch event)
+    document.addEventListener('gesturestart', function (e) {
+      e.preventDefault();
+    }, { passive: false });
+  </script>
 </head>
 
 <body class="bg-slate-950 text-slate-100 antialiased selection:bg-blue-600 selection:text-white">

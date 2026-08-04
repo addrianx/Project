@@ -6,6 +6,42 @@
   --font-mono: 'JetBrains Mono', monospace;
 }
 
+/* ============================================
+   MOBILE / iOS / ANDROID TOUCH FIXES
+   ============================================ */
+
+/* Prevent pinch-to-zoom via touch-action */
+html, body {
+  touch-action: pan-x pan-y;
+}
+
+/* Fix iOS button text-selection bug:
+   Tapping a button on iOS sometimes highlights/selects its text.
+   -webkit-user-select: none disables text selection on interactive elements. */
+button,
+a,
+label,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  -webkit-user-select: none;
+  user-select: none;
+  /* Remove the grey tap-highlight flash on iOS/Android */
+  -webkit-tap-highlight-color: transparent;
+  /* Prevent callout (long-press context menu) on iOS */
+  -webkit-touch-callout: none;
+}
+
+/* Also suppress text selection on common UI containers
+   (nav bars, cards, icon labels) so nothing gets highlighted on tap */
+nav,
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: #0b1329;
