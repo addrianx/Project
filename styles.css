@@ -47,14 +47,55 @@ body {
   background-color: #0b1329;
   color: #f8fafc;
   min-height: 100vh;
-  /* Extra bottom padding accounts for safe-area-inset on iPhone X+ */
-  padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+  /* No bottom padding needed — layout handled by app-shell */
   transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ============================================
+   APP SHELL — Fixed-height inner-scroll layout
+   Prevents browser chrome show/hide from
+   moving the bottom navbar
+   ============================================ */
+
+/* The shell occupies exactly the current visible viewport.
+   100dvh (dynamic viewport height) always equals the current
+   visible screen height — it updates when Chrome/Firefox
+   auto-hides their address bar or navigation buttons, so
+   the shell simply resizes and the navbar stays at the
+   bottom of the shell without ever being re-positioned. */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;          /* preferred: updates with browser chrome */
+  height: 100vh;           /* fallback for older browsers */
+  height: 100dvh;          /* preferred wins via cascade */
+  overflow: hidden;        /* the shell itself must NOT scroll */
+}
+
+/* Main content area — this is the only part that scrolls */
+.app-main {
+  flex: 1;                 /* fill all space between header and bottom nav */
+  overflow-y: auto;        /* inner scroll */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* smooth momentum scroll on iOS */
+  overscroll-behavior: contain;      /* prevent scroll from propagating to shell */
+  /* Padding for content inside the scroll area */
+  padding: 1rem;
+}
+
+@media (min-width: 1280px) {
+  .app-main {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding: 1.5rem 1rem;
+  }
 }
 
 @media (min-width: 1024px) {
   body {
-    padding-bottom: 0;
+    /* desktop: no change needed */
   }
 }
 
@@ -453,15 +494,16 @@ html.light .glass-input {
   transform: scale(0.95);
 }
 
-/* Android Bottom Nav */
+/* Android Bottom Nav
+   NOT position: fixed — it is a normal flex child at the bottom
+   of .app-shell. This prevents browser chrome (address bar,
+   nav buttons) from affecting its position entirely. */
 .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  /* iPhone X+ safe area — pushes nav above the home indicator */
+  /* In-flow: sits at the end of the app-shell flex column */
+  flex-shrink: 0;
+  width: 100%;
+  /* iPhone X+ safe area below the home indicator */
   padding-bottom: env(safe-area-inset-bottom, 0px);
-  /* Minimum height without safe area */
   height: calc(64px + env(safe-area-inset-bottom, 0px));
   background: rgba(15, 23, 42, 0.97);
   backdrop-filter: blur(12px);
@@ -470,14 +512,18 @@ html.light .glass-input {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  z-index: 50;
-  /* Force GPU compositing layer — prevents iOS Safari from moving
-     fixed elements when the virtual keyboard opens or page zooms */
+  /* GPU layer for smooth rendering */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
-  will-change: transform;
-  /* Prevent the nav from accidentally scrolling itself */
   overflow: hidden;
+  /* Only show on mobile — desktop uses the sidebar */
+  z-index: 40;
+}
+
+@media (min-width: 1024px) {
+  .bottom-nav {
+    display: none;
+  }
 }
 
 html.light .bottom-nav {
